@@ -7,11 +7,15 @@ const Card = (product) => {
   const showProduct = (productDetail) => {
     context.openProductDitail()
     context.setProductShow(productDetail)
+    context.closeCheckOutMenu();
   }
 
-  const addProductCar = (productData) =>{
+  const addProductCar = (event, productData) =>{
+    event.stopPropagation();
     context.setCount(context.count +1)
     context.setCarProducts([...context.carProducts, productData])
+    context.openCheckOutMenu()
+    context.closeProductDitail()
   }
 
   return (
@@ -34,7 +38,7 @@ const Card = (product) => {
         <div className="flex justify-between p-2">
           <span className="font-novecento text-lg font-bold">${product.product.price}</span>
           <button className="border border-gray-500 px-1 font-novecento text-center text-sm font-light rounded-md hover:bg-gray-200 duration-700"
-          onClick={() => addProductCar(product.product) }>
+          onClick={(event) => addProductCar(event, product.product)}>
             Agregar+
           </button>
         </div>

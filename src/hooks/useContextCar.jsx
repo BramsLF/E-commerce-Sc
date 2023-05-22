@@ -5,22 +5,22 @@ const useContextCar = createContext();
 const ContextCarProvider = ({ children }) => {
   //Contador en el bolso de compras
   const [count, setCount] = useState(0);
-  
+
   //Apertura del aside de la orden
   const [productOpen, setProductOpen] = useState(false);
   const openProductDitail = () => setProductOpen(true);
   const closeProductDitail = () => setProductOpen(false);
 
-    //Apertura del aside de la orden
-    const [ checkOutMenuOpen , setCheckOutMenuOpen] = useState(false);
-    const openCheckOutMenu = () => setCheckOutMenuOpen(true);
-    const closeCheckOutMenu = () => setCheckOutMenuOpen(false);
+  //Apertura de la orden
+  const [checkOutMenuOpen, setCheckOutMenuOpen] = useState(false);
+  const openCheckOutMenu = () => setCheckOutMenuOpen(true);
+  const closeCheckOutMenu = () => setCheckOutMenuOpen(false);
 
-  //Muestra los detalles de los productos en el aside de orden, muestra el estado de uno 
-  const [ productShow, setProductShow ] = useState({})
+  //Muestra los detalles de los productos en el aside de orden, muestra el estado de uno
+  const [productShow, setProductShow] = useState({});
 
   //Acumula los produtos seleccioados en el aside de orden
-  const [ carProducts, setCarProducts ] = useState([])
+  const [carProducts, setCarProducts] = useState([]);
 
   return (
     <useContextCar.Provider
@@ -35,7 +35,8 @@ const ContextCarProvider = ({ children }) => {
         carProducts,
         setCarProducts,
         checkOutMenuOpen,
-        setCheckOutMenuOpen
+        openCheckOutMenu,
+        closeCheckOutMenu,
       }}
     >
       {children}

@@ -8,7 +8,7 @@ export default {
         raleway: ["Raleway", "sans-serif"],
       },
       height: {
-        "screen-80px": "calc(100vh - 80px)",
+        "screen-80px": "calc(100vh - 63px)",
       },
       plugins: [],
     },

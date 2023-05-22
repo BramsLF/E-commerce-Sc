@@ -11,7 +11,7 @@ const Navbar = () => {
   const defaultStyle ="py-2 px-3 hover:bg-gray-200 transition-colors duration-500 font-novecento font-ligth hover:text-gray-900 transition-colors duration-500";
 
   return (
-    <nav className="fixed z-10 bg-blend-color-burn top-0 flex justify-between items-center w-full py-5 px-8 text-sm font-light backdrop-filter backdrop-blur-md backdrop-saturate-80 bg-white bg-opacity-70">
+    <nav className="fixed z-10 bg-blend-color-burn top-0 flex justify-between items-center w-full h-16 py-5 px-8 text-sm font-light backdrop-filter backdrop-blur-md backdrop-saturate-80 bg-white bg-opacity-70">
       <ul className="flex items-center h-full">
         <li>
           <NavLink to="/">
@@ -93,7 +93,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className="flex justify-center items-center">
-          <ShoppingBagIcon className="h-6 w-6 text-gray-950" />{context.count}
+          <ShoppingBagIcon className="h-6 w-6 text-gray-950 m-1" />{context.count}
         </li>
       </ul>
     </nav>
