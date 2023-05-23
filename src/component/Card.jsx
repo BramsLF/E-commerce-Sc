@@ -36,21 +36,21 @@ const Card = (product) => {
 
   return (
     <div
-      className="bg-white rounded-md cursor-pointer w-56 h-72 shadow-md"
+      className="bg-white rounded-md cursor-pointer w-56 h-80 shadow-md"
       onClick={() => showProduct(product.product)}
     >
-      <figure className="relative mb-2 m-auto mt-2 h-48">
+      <figure className="relative mb-2 m-auto h-56">
         <span className="absolute bottom-0 left-0 bg-white rounded-md px-3 py-0.5 text-xs font-novecento font-light opacity-70 m-1">
           {product.product.category.name}
         </span>
         <img
-          className="h-full w-full object-contain m-auto rounded-t-md"
+          className="w-full object-cover m-auto rounded-t-md"
           src={product.product.images}
           alt="product image"
         />
       </figure>
       <section className="mb-auto h-1/5">
-        <p className="font-raleway pt-1 px-2 text-lg">
+        <p className="font-raleway px-2 text-base">
           <span>{product.product.title}</span>
         </p>
         <div className="flex justify-between p-2">

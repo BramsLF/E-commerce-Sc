@@ -16,6 +16,8 @@ const App = () => {
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/my-account" element={<MyAccount />} />
           <Route exact path="/my-order" element={<MyOrder />} />
+          <Route exact path="/my-order/last" element={<MyOrder />} />
+          <Route exact path="/my-orders/:id" element={<MyOrder />} />
           <Route exact path="/my-orders" element={<MyOrders />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

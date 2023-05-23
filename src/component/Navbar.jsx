@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const context =useContext(useContextCar);
   const activeStyle = "underline underline-offset-4 py-2 px-3 font-novecento font-semibold";
-  const defaultStyle ="py-2 px-3 hover:bg-gray-200 transition-colors duration-500 font-novecento font-ligth hover:text-gray-900 transition-colors duration-500";
+  const defaultStyle ="py-2 px-3 hover:bg-white transition-colors duration-500 font-novecento font-ligth hover:text-gray-900 transition-colors duration-500";
 
   return (
     <nav className="fixed z-10 bg-blend-color-burn top-0 flex justify-between items-center w-full h-16 py-5 px-8 text-sm font-light backdrop-filter backdrop-blur-md backdrop-saturate-80 bg-white bg-opacity-70">

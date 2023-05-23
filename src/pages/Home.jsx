@@ -1,21 +1,43 @@
+import { useContext } from "react";
+import { useContextCar } from "../hooks/useContextCar";
 import Card from "../component/Card";
 import ProductDitail from "../component/ProductDetail";
 import LayOut from "../container/layout";
-import useGetProducts from "../hooks/useGetProducts";
 
 const Home = () => {
-  const API = "https://api.escuelajs.co/api/v1/products";
- 
-  const products = useGetProducts(API);
- 
+  const context = useContext(useContextCar);
+
+  const renderView = () => {
+    if (context.searchValue?.length > 0) {
+      if (context.filterProducts?.length > 0) {
+        return context.filterProducts?.map((product) => (
+          <Card key={product.id} product={product} />
+        ));
+      } else {
+        return <div>Articulo no encontrado</div>;
+      }
+    } else {
+      return context.products?.map((product) => (
+        <Card key={product.id} product={product} />
+      ));
+    }
+  };
+
   return (
     <LayOut>
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
-        {products?.map(product => (
-          <Card key={product.id} product={product} />
-        ))}
+      <div className="flex items-center justify-center w-80 mb-2">
+        <h1 className="font-novecento font-bold text-lg">Articulos</h1>
       </div>
-      <ProductDitail/>
+      <input
+        type="text"
+        placeholder="Busca tu Producto"
+        className="rounded-md border border-black w-80 p-3 mb-3"
+        onChange={(event) => context.setSearchValue(event.target.value)}
+      />
+      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+        {renderView()}
+      </div>
+      <ProductDitail />
     </LayOut>
   );
 };

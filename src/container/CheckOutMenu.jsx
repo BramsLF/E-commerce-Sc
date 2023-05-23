@@ -1,14 +1,30 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { useContextCar } from "../hooks/useContextCar";
+import { Link } from "react-router-dom";
 import OrderCard from "../component/OrderCard";
+import totalPrice from "../utils";
 const CheckOutMenu = () => {
   const context = useContext(useContextCar);
 
   const handleDelete = (id) => {
-    const filteredProduct = context.carProducts.filter(product => product.id != id)
-    context.setCarProducts(filteredProduct)
-  }
+    const filteredProduct = context.carProducts.filter(
+      (product) => product.id != id
+    );
+    context.setCarProducts(filteredProduct);
+  };
+
+  const handleCheckout = () => {
+    const orderAdd = {
+      date: "01/02/2023",
+      products: context.carProducts,
+      totalProducts: context.carProducts.length,
+      totalPrice: totalPrice(context.carProducts),
+    };
+
+    context.setOrder([...context.order, orderAdd]);
+    context.setCarProducts([]);
+  };
 
   return (
     <aside
@@ -23,19 +39,34 @@ const CheckOutMenu = () => {
           onClick={() => context.closeCheckOutMenu()}
         />
       </div>
-      <div className="px-6 overflow-y-scroll">
+      <div className="px-6 overflow-y-scroll flex-1">
         {context.carProducts.map((product) => (
-        <OrderCard
-          kye={product.id}
-          id={product.id}
-          title={product.title}
-          imageURL={product.images}
-          price={product.price}
-          handleDelete={handleDelete}
-        />
-      ))}
+          <OrderCard
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            imageURL={product.images}
+            price={product.price}
+            handleDelete={handleDelete}
+          />
+        ))}
       </div>
-      
+      <div className="px-6 mb-6">
+        <p className="flex justify-between items-center">
+          <span className="font-novecento font-light text-lg">Total:</span>
+          <span className="font-novecento font-black text-lg">
+            ${totalPrice(context.carProducts)}
+          </span>
+        </p>
+        <Link to={"/my-order/last"}>
+          <button
+            className="w-full bg-slate-900 text-white rounded-md font-novecento p-4 my-2 hover:bg-slate-800"
+            onClick={() => handleCheckout()}
+          >
+            Mi Compra
+          </button>
+        </Link>
+      </div>
     </aside>
   );
 };

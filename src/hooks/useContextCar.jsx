@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const useContextCar = createContext();
 
@@ -22,6 +22,43 @@ const ContextCarProvider = ({ children }) => {
   //Acumula los produtos seleccioados en el aside de orden
   const [carProducts, setCarProducts] = useState([]);
 
+  //Orden del carrito
+  const [ order, setOrder ] = useState([]);
+
+  //Buscador
+  const [ searchValue, setSearchValue ] = useState(null);
+
+  //Get Products
+  const [products, setProducts] = useState([]);
+
+  //Get Products
+  const [filterProducts, setFilterProducts] = useState([])
+
+  const API = "https://api.escuelajs.co/api/v1/products";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API);
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const filterItemsHome =( products, searchValue )=>{
+    return products?.filter(product => product.title.toLowerCase().includes(searchValue.toLowerCase()))  
+  }
+
+  useEffect(()=> {
+    if (searchValue) setFilterProducts(filterItemsHome(products, searchValue))
+  },[products, searchValue])
+
+
+
   return (
     <useContextCar.Provider
       value={{
@@ -37,6 +74,13 @@ const ContextCarProvider = ({ children }) => {
         checkOutMenuOpen,
         openCheckOutMenu,
         closeCheckOutMenu,
+        order,
+        setOrder,
+        products,
+        setProducts,
+        searchValue,
+        setSearchValue,
+        filterProducts
       }}
     >
       {children}
