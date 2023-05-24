@@ -1,4 +1,4 @@
-import LayOut from "../container/layout";
+import LayOut from "../container/LayOut";
 
 const MyAccount = () => {
   return (

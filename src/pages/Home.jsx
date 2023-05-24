@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useContextCar } from "../hooks/useContextCar";
 import Card from "../component/Card";
 import ProductDitail from "../component/ProductDetail";
-import LayOut from "../container/layout";
+import LayOut from "../container/LayOut";
 
 const Home = () => {
   const context = useContext(useContextCar);
