@@ -10,7 +10,7 @@ const OrdersCard = (props) => {
           <span className="font-raleway ">{totalProducts} Articulos</span>
         </p>
         <p className="w-full flex items-center justify-end px-6 py-2">
-          <span className="font-novecento text-xl px-2">${totalPrice}</span>
+          <span className="font-novecento font-bold text-xl px-2">${totalPrice}</span>
           <ChevronDoubleRightIcon className="h-6 w-6 text-gray-950 cursor-pointer" />
         </p>
       </div>
