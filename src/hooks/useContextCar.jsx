@@ -23,16 +23,16 @@ const ContextCarProvider = ({ children }) => {
   const [carProducts, setCarProducts] = useState([]);
 
   //Orden del carrito
-  const [ order, setOrder ] = useState([]);
+  const [order, setOrder] = useState([]);
 
   //Buscador
-  const [ searchValue, setSearchValue ] = useState(null);
+  const [searchValue, setSearchValue] = useState(null);
 
   //Get Products
   const [products, setProducts] = useState([]);
 
   //Get Products
-  const [filterProducts, setFilterProducts] = useState([])
+  const [filterProducts, setFilterProducts] = useState([]);
 
   const API = "https://api.escuelajs.co/api/v1/products";
 
@@ -49,15 +49,45 @@ const ContextCarProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const filterItemsHome =( products, searchValue )=>{
-    return products?.filter(product => product.title.toLowerCase().includes(searchValue.toLowerCase()))  
+   //Buscador por categorias
+   const [ searchByCategory, setSearchByCategory ] = useState(null);
+
+  const filterItemsByCategory = (products, searchByCategory) => {
+    return products?.filter((product) =>
+      product.category.id === searchByCategory
+    );
+  };
+  
+  const filterItemsHome = (products, searchValue) => {
+    return products?.filter((product) =>
+      product.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  };
+
+  const filterBy =(searchType, products, searchValue, searchByCategory)=>{
+      if(searchType === "BY_TITLE") {
+       return filterItemsHome(products, searchValue)
+      }
+
+      if(searchType === "BY_CATEGORY") {
+        return filterItemsByCategory(products, searchByCategory)
+       }
+
+       if(searchType === "BY_TITLE_AND_CATEGORY") {
+        return filterItemsByCategory(products, searchByCategory).filter(product => product.title.toLowerCase().includes(searchValue.toLowerCase()))
+       }
+
+       if(!searchType) {
+        return products
+       }
   }
 
-  useEffect(()=> {
-    if (searchValue) setFilterProducts(filterItemsHome(products, searchValue))
-  },[products, searchValue])
-
-
+  useEffect(() => {
+    if (searchValue && !searchByCategory) setFilterProducts(filterBy("BY_TITLE", products, searchValue, searchByCategory));
+    if (!searchValue && searchByCategory) setFilterProducts(filterBy("BY_CATEGORY", products, searchValue, searchByCategory));
+    if (searchValue && searchByCategory) setFilterProducts(filterBy("BY_TITLE_AND_CATEGORY", products, searchValue, searchByCategory));
+    if (!searchValue && !searchByCategory) setFilterProducts(filterBy(null, products, searchValue, searchByCategory));
+  }, [products, searchValue, searchByCategory]);
 
   return (
     <useContextCar.Provider
@@ -80,7 +110,9 @@ const ContextCarProvider = ({ children }) => {
         setProducts,
         searchValue,
         setSearchValue,
-        filterProducts
+        filterProducts,
+        setSearchByCategory,
+        searchByCategory
       }}
     >
       {children}

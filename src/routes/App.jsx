@@ -13,6 +13,11 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route path="/clothes" element={<Home />} />
+          <Route path="/electronics" element={<Home />} />
+          <Route path="/furnitures" element={<Home />} />
+          <Route path="/toys" element={<Home />} />
+          <Route path="/others" element={<Home />} />
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/my-account" element={<MyAccount />} />
           <Route exact path="/my-order" element={<MyOrder />} />
@@ -23,7 +28,6 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </ContextCarProvider>
-      
   );
 };
 
